@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Success
+{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <h1>{{ message }}</h1>
+    <br><br>
+    <h4><a href="{{url_for('index')}}">Home page</a></h4>
+    <h4><a href="{{url_for('login_page')}}">Login page</a></h4>
+    <h4><a href="{{url_for('search')}}">Search page</a></h4>
+    <h4><a href="{{url_for('registration_page')}}">Registration page</a></h4>
+  </div>
+
+{% endblock %}

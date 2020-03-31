@@ -1,0 +1,41 @@
+h1 {
+	color:blue;
+	text-align: center;
+}
+
+p {
+	color: magenta;
+}
+
+div {
+
+	font-family: Arial, sans-serif;
+	font-size: 30px;
+	font-weight: bold;
+
+	border: 3px solid blue;
+
+	background-color: grey;
+	margin: 30px;
+	height: 500px;
+	width: 500px;
+	padding: 30px;
+}
+
+
+table {
+	border: 2px solid black;
+	border-collapse: collapse;
+	width: 50%;
+	margin: auto;
+}
+
+th, td {
+	border: 1px solid black;
+	text-align: center;
+	padding: 5px;
+}
+
+th{
+	background-color: lightgrey;
+}
