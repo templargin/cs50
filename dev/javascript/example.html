@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>EXAMPLE</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style media="screen">
+      html, body, .container-fluid{
+        height: 100%;
+        margin: 0;
+      }
+
+      .wrapper{
+        flex:1;
+        max-height: inherit;
+      }
+
+      #cont{
+        background-color: yellow;
+        overflow: auto;
+        height: 80%;
+        max-height: 75vh;
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+
+
+    <div class="container-fluid d-flex flex-column">
+        <div class="row">
+            <h1>This is header.</h1>
+        </div>
+        <div class="row d-flex wrapper"><!--adjustment here-->
+          <div class="col-3 bg-warning d-flex flex-column justify-content-between">
+            <div id="cont">
+              <h1>One</h1>
+              <h1>Two</h1>
+              <h1>One</h1>
+              <h1>Two</h1>
+
+            </div>
+
+            <div class="row">
+              <h1>FOOTER 1</h1>
+              <h1>FOOTER 2</h1>
+            </div>
+
+          </div>
+
+          <div class="col-6 bg-primary"> Col 2 </div>
+        </div>
+    </div>
+
+
+
+  </body>
+</html>

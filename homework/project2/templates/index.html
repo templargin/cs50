@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <!-- This is to use $(function) instead of document.addEventHandler -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <!-- These are bootstrap scripts -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <!-- This is bootstrap stylesheet -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <!-- This is a link for icons -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+  <!-- This imports SocketIO library for JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+
+  <!-- This is my MAIN JS File -->
+  <script src="{{ url_for('static', filename='index.js')}}"></script>
+
+  <!-- Adding a favicon to my website -->
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='fav.png')}}">
+
+
+  <title>Flack</title>
+
+  <style media="screen">
+
+    html, body, .container-fluid {
+        height: 100%;
+        max-height: 100%;
+        overflow: hidden;
+    }
+
+    .wrapper{
+      flex:1;
+      display: flex;
+    }
+
+    .container-fluid{
+      padding: :20px;
+    }
+
+    .channels{
+      background-color: #fce805;
+    }
+
+    .header{
+      background-color: lightblue;
+      padding-top:10px;
+      padding-right: 5px;
+      padding-bottom: 5px;
+    }
+
+    .channelHeader{
+      padding-top: 5px;
+      background-color: green;
+    }
+
+    ul{
+      list-style-type: none;
+      margin-top: 3px;
+      margin-bottom: 3px;
+    }
+
+    .active{
+      background-color: #00AEC7;
+    }
+
+    #channelList li:not(.active):hover, #inbox li:hover{
+      cursor: pointer;
+      background-color: #e3d212;
+    }
+
+    #btnAddChannel i:hover{
+      cursor: pointer;
+    }
+
+    #messages{
+      overflow: auto;
+      height: 75%;
+      max-height: 70vh;
+      background-color: #f5f5f5;
+      padding: 5px;
+
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+
+<!-- Main content container -->
+<div class="container-fluid d-flex flex-column">
+    <!-- Nav bar -->
+    <nav class='navbar justify-content-end'>
+      <h3 class='text-right'>Flack (Project 2 CS50)</h3>
+    </nav>
+
+    <!-- Main row -->
+    <div class="row wrapper">
+
+      <!-- Channels column -->
+      <div class="col-3 channels">
+        <div class="userBox d-flex">
+          <h5 id="username"></h5>
+          <h7><i><u>(online)</u></i></h7>
+        </div>
+        <div class="channelBox">
+          <div class="d-flex justify-content-between">
+              <h3>Channels </h3>
+              <a id="btnAddChannel">
+                <i class="far fa-plus-square"></i>
+              </a>
+          </div>
+          <ul id="channelList" class="list-group">
+          </ul>
+        </div>
+      </div>
+
+      <!-- Message column -->
+      <div class="col-9 d-flex flex-column justify-content-between">
+
+        <!-- Div with all the messages -->
+        <div id="messages"></div>
+
+        <!-- third div -->
+        <div class="row p-3">
+          <textarea class="form-control" id="messageInput" placeholder="Type your message here" rows="3"></textarea>
+          <button id="btnSubmitMessage" class="btn btn-primary">Send</button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div id="myModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"></h5>
+        </div>
+        <div class="modal-body">
+          <input class="form-control" id="modalInput" type="text" autocomplete="off" autocapitalize="none">
+        </div>
+        <div class="modal-footer">
+          <button id="modalSubmit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+</body>
+</html>
