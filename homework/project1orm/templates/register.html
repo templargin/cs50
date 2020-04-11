@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title %}
+  Registration page
+{% endblock %}
+
+{% block body %}
+
+  <div class="container">
+    <div class="col-4">
+      <h4>Registration details:</h4>
+      <form class="form-group" action="{{ url_for('register') }}" method="post">
+        <div class="form-group">
+          <input class="form-control" name="username" placeholder="Enter username" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="password" name="password" placeholder="Enter password" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary" name="button">Register</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-8">
+
+    </div>
+
+  </div>
+
+{% endblock %}

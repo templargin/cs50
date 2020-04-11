@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Book details
+{% endblock %}
+
+{% block body %}
+  <div class="container">
+
+    <nav class="navbar navbar-light bg-light justify-content-between">
+      <a class="nav-item">Hello, {{user.username}}</a>
+      <form class="form-inline" action="{{ url_for('logout') }}" method="POST">
+        <button class="btn btn-primary">Log out</button>
+      </form>
+    </nav>
+
+    <br>
+
+    <div class="row">
+
+      <div class="col-4">
+        <h4>Book details</h4>
+        <ul>
+          <li>ISBN : {{ book.isbn }} </li>
+          <li>Author : {{ book.author }} </li>
+          <li>Title : {{ book.title }} </li>
+          <li>Publication year: {{ book.year }}</li>
+        </ul>
+      </div>
+
+      <div class="col-4">
+
+      </div>
+
+      <div class="col-4">
+        <h4>Leave a review</h4>
+        <form class="form-group" action="{{ url_for('book', book_id = book.id) }}" method="post">
+          <div class="form-group">
+            Rating
+            <select class="form-control" name="rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" name="review_text" placeholder="Review text" rows="4"></textarea>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-4">
+        {% if reviews|length %}
+          <h4>Book reviews</h4>
+          <ul>
+            {% for review in reviews %}
+            <li>
+              <div >
+                Rating: {{ review.rating }} out of 5
+              </div>
+              <div>
+                <i>{{ review.review_text }} </i>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+      <div class="col-4">
+
+      </div>
+      <div class="col-4">
+        {% if goodreads_data %}
+        <h4>Goodreads ratings</h4>
+          <span class="label label-default">
+            Average rating: {{ goodreads_data['books'][0]['average_rating'] }} out of 5
+          </span>
+          <br>
+          <span class="label label-default">
+            Number of reviews: {{ goodreads_data['books'][0]['work_ratings_count'] }}
+          </span>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block title %}
+  Search a book
+{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <nav class="navbar navbar-light bg-light justify-content-between">
+      <a class="nav-item">Hello, {{user.username}}</a>
+      <form class="form-inline" action="{{ url_for('logout') }}" method="POST">
+        <button class="btn btn-primary">Log out</button>
+      </form>
+    </nav>
+
+    <br>
+
+    <div class="row">
+      <div class="col-4">
+        <h4>Search a book</h4>
+        <form class="form-group" action="{{ url_for('search_results') }}" method="post">
+          <div class="form-group">
+            <select class="form-control" name="search_criteria">
+                <option value="isbn">ISBN</option>
+                <option value="title">Title</option>
+                <option value="author">Author</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <input class="form-control" type="text" name="search_input" placeholder="Search input" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary">Search</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-2">
+
+      </div>
+      <div class="col-4">
+        {% if not from_login %}
+              <h1>Search results:</h1>
+              <h5>Search criteria: {{ search_criteria}} </h5>
+              <h5> Search input : {{ search_input }} </h5>
+
+            {% if books|length %}
+              <ul>
+                {% for book in books %}
+                <li><a href="{{ url_for('book', book_id = book.id) }}">{{ book.title }}, {{ book.author}}</a></li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <h3>No matches found</h3>
+            {% endif %}
+        {% endif %}
+      </div>
+      <div class="col-2">
+
+      </div>
+    </div>
+
+
+  </div>
+
+{% endblock %}
