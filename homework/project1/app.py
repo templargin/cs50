@@ -45,10 +45,23 @@ def logout():
 
 @app.route("/register", methods = ["POST"])
 def register():
+
     username = request.form.get("username")
+    password = request.form.get("password")
+
+    # username exists
     if db.execute("select * from users where username = :username", {"username":username}).rowcount != 0:
         return render_template("error.html", message = "Somebody has already taken this username. \nPlease try another one.")
-    password = request.form.get("password")
+
+    # empty input
+    if not username or not password:
+        return render_template("error.html", message = "Neither username nor password can be empty. \nPlease try again.")
+
+    # space in input
+    if (' ' in username) == True or (' ' in password) == True:
+        return render_template("error.html", message = "No spaces allowed. \nPlease try again.")
+
+
     db.execute("insert into users (username, password) values (:username, :password)",{"username":username, "password":password})
     db.commit()
 
@@ -78,9 +91,13 @@ def search_results():
 
     search_criteria = request.form.get("search_criteria")
     search_input = request.form.get("search_input")
-    search_input = search_input.capitalize()
 
-    query = "select * from books where " + search_criteria + " like :search_input"
+    # check if reviews_text is not empty
+    if not search_input or search_input.isspace():
+        return render_template("error.html", message = "Search input cannot be empty. Please try again.")
+
+
+    query = "select * from books where " + search_criteria + " ilike :search_input"
     books = db.execute(query, {"search_input":'%'+search_input+'%'}).fetchall()
 
     return render_template("search.html", from_login = False, books = books, search_input = search_input, search_criteria = search_criteria, user = session["user"])
@@ -101,6 +118,11 @@ def book(book_id):
     # Submit a reivew to a database
     if request.method == "POST":
         review_text = request.form.get("review_text")
+
+        # check if reviews_text is not empty
+        if not review_text or review_text.isspace():
+            return render_template("error.html", message = "Review cannot be empty. Please try again.")
+
         rating = request.form.get("rating")
 
         review = db.execute("select * from reviews where user_id=:user_id and book_id=:book_id", {"user_id":session["user"].id,"book_id":book_id}).fetchone()
